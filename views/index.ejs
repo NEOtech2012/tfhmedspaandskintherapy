@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %> 
+    <title>TFH MedSpa</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('partials/header') %>
+
+    <section class="slider-container">
+    <div class="slider">
+        <div class="slide active spa-slide">
+            <div class="slide-content">
+                <h1>TFH Medspa and Skin THearpy</h1>
+                <p>Release the pain, my hands can heal You .</p>
+                <a href="/spa" class="btn-lemon">Explore Spa</a>
+            </div>
+        </div>
+        
+        <div class="slide massage-slide">
+            <div class="slide-content">
+                <h1>SNOOKER & BILLIARDS</h1>
+                <p>Master your game in our professional lounge.</p>
+                <a href="/lounge" class="btn-lemon">View Lounge</a>
+            </div>
+        </div>
+
+        <div class="slide lounge-slide">
+            <div class="slide-content">
+                <h1>TFH Juice Bar and Lounge</h1>
+                <p>Celebrate the taste of nature.</p>
+                <a href="/lounge" class="btn-lemon">Visit Lounge</a>
+            </div>
+        </div>
+    </div>
+    
+    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+</section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2>Why Choose TFH MedSpa and Skin Therapy?</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>🥥 Cleanliness & Safety</h3>
+                    <p>Vital for professional skin therapy treatments.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔥 Modern Equipment</h3>
+                    <p>Using advanced steamers and therapy tools.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔥 Expert Therapists</h3>
+                    <p>Professional care tailored for Nigerian skin types.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🚀 Fast Delivery</h3>
+                    <p>Order our skincare jars and get them delivered to your doorstep.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-area">
+        <div class="content-wrapper">
+            <h2 class="main-title">Satisfied Customers</h2>
+            <div class="testimonials-row">
+                <div class="testimonial-item">
+                    <div class="stars">★★★★★</div>
+                    <p>"The best skin therapy in Nigeria! TFH MedSpa and skin therapy transformed my skin texture."</p>
+                    <span class="author">- Sarah A.</span>
+                </div>
+                <div class="testimonial-item premium">
+                    <div class="stars">★★★★★</div>
+                    <div class="tag">TOP REVIEW</div>
+                    <p>"I love the lounge! Playing snooker after a body massage is the ultimate relaxation."</p>
+                    <span class="author">- Emeka V.</span>
+                </div>
+                <div class="testimonial-item">
+                    <div class="stars">★★★★★</div>
+                    <p>"Very clean environment and the lemon-themed decor is beautiful."</p>
+                    <span class="author">- Joy O.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews-display">
+        <div class="container">
+            <h2 class="section-title">Latest Reviews</h2>
+            <div class="reviews-grid">
+                <% if (typeof reviews !== 'undefined' && reviews.length > 0) { %>
+                    <% reviews.forEach(function(review) { %>
+                        <div class="review-card">
+                            <div class="stars">
+                                <% for(let i=0; i < review.rating; i++) { %> ★ <% } %>
+                            </div>
+                            <p>"<%= review.message %>"</p>
+                            <h4 class="client-name">- <%= review.name %></h4>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>No reviews yet. Be the first to leave one!</p>
+                <% } %>
+            </div>
+        </div>
+    </section>
+
+    <section class="submit-review-section">
+        <div class="container">
+            <h2 class="section-heading">Leave a Review</h2> 
+            <p>Tell us about your experience at TFH MedSpa and skin therapy</p>
+            <form action="/submit-review" method="POST" class="review-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <select name="rating" required>
+                    <option value="5">5 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="2">2 Stars</option>
+                    <option value="1">1 Stars</option>
+                </select>
+                <textarea name="message" placeholder="Your experience..." required></textarea>
+                <button type="submit" class="submit-btn">POST REVIEW</button>
+            </form>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function moveSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(() => moveSlide(1), 5000);
+
+       const menuBtn = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-links');
+
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    </script>
+
+</body>
+</html>

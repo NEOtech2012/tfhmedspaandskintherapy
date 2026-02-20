@@ -1,0 +1,1550 @@
+/* TFH MedSpa Design System */
+:root {
+    --lemon: #D9F110;
+    --black: #1A1A1A;
+    --white: #FFFFFF;
+    --gray: #F4F4F4;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--black);
+    background-color: var(--white);
+}
+
+/* Header Styles */
+.main-header {
+    background-color: #1A1A1A; /* Black */
+    color: #FFFFFF;           /* White */
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+/* Layout for the Logo and Text */
+.brand-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+/* The Logo Size */
+.nav-logo {
+    height: 50px; /* Adjust size as needed */
+    width: auto;
+    border-radius: 50%; /* Keeps the circular shape of your logo */
+    background: transparent; /* Ensures no white box shows */
+}
+
+/* Lemon Text Styling */
+.lemon-text {
+    color: #d9f110; /* Your Lemon Color */
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.white-text {
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+/* Hover effect for the brand */
+.brand-logo-container:hover .lemon-text {
+    text-shadow: 0 0 10px rgba(217, 241, 16, 0.5);
+    transition: 0.3s ease;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #D9F110; /* Glow lemon on hover */
+}
+
+/* Header & Nav */
+header {
+    background-color: var(--black);
+    padding: 1.5rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--white);
+}
+
+.logo span {
+    color: var(--lemon);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--lemon);
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 100px 5%;
+    text-align: center;
+    background-color: var(--white);
+    border-bottom: 10px solid var(--black);
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    background-color: var(--lemon);
+    color: var(--black);
+    border: 2px solid var(--black);
+    padding: 1rem 2.5rem;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--black);
+    color: var(--lemon);
+}
+
+/* style.css */
+
+.logo {
+    font-weight: bold;
+    font-size: 1.5rem; /* Slightly smaller to fit the full name */
+    letter-spacing: -0.5px;
+    white-space: nowrap; /* Keeps the name on one line if possible */
+}
+
+/* For smaller screens (Phones) */
+@media (max-width: 600px) {
+    .main-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .logo {
+        white-space: normal; /* Allows it to wrap on small phones */
+        font-size: 1.2rem;
+    }
+}
+
+/* Dropdown Container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Menu (Hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1A1A1A; /* Black background */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    list-style: none;
+    padding: 0;
+    border-top: 2px solid #D9F110; /* Lemon accent border */
+}
+
+/* Links inside the dropdown */
+.dropdown-content li a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background 0.3s;
+}
+
+/* Hover effects */
+.dropdown-content li a:hover {
+    background-color: #333;
+    color: #D9F110; /* Lemon text on hover */
+}
+
+/* Show the menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 80vh; /* Takes up 80% of the screen height */
+    overflow: hidden;
+    background-color: var(--black);
+}
+
+.slide {
+    display: none; /* Hidden by default */
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.slide.active {
+    display: flex; /* Only show the active slide */
+    animation: fade 1.5s;
+}
+
+.slide-content h1 {
+    color: var(--lemon);
+    font-size: 4rem;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.slide-content p {
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+}
+
+/* Arrows */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(217, 241, 16, 0.2); /* Transparent Lemon */
+    color: var(--lemon);
+    border: none;
+    padding: 20px;
+    cursor: pointer;
+    font-size: 2rem;
+    transition: 0.3s;
+}
+
+.prev:hover, .next:hover {
+    background: var(--lemon);
+    color: var(--black);
+}
+
+.next { right: 0; }
+
+/* This makes sure the image fills the entire hero section */
+.slide {
+    display: none; 
+    height: 100%;
+    width: 100%;
+    background-size: cover;      /* This is the key to filling the space */
+    background-position: center; /* Keeps the people centered in the frame */
+    background-repeat: no-repeat;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+/* Specific background for the Snooker/Lounge slide */
+.lounge-slide {
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/snooker-lounge.jpg');
+}
+
+.lounge-menu .section-title {
+    text-align: center;      /* Centers the text */
+    color: #d9f110;          /* Your specific lemon color */
+    text-transform: uppercase; /* Makes it all CAPITAL LETTERS */
+    margin-bottom: 30px;     /* Adds space below the title */
+    font-weight: bold;       /* Optional: Makes it stand out more */
+}
+
+/* 1. The Container MUST have a height */
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 80vh; /* This makes it 80% of the screen height */
+    min-height: 500px; /* Ensures it doesn't get too small on laptops */
+    background-color: #1A1A1A; 
+}
+
+/* 2. The Slider needs to fill the container */
+.slider {
+    width: 100%;
+    height: 100%;
+}
+
+/* 3. The Slide MUST be forced to fill 100% of its parent */
+.slide {
+    width: 100%;
+    height: 100%;
+    background-size: cover !important; /* '!important' forces it to work */
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: none; /* Hidden by default */
+}
+
+/* 4. Only the active slide shows up */
+.slide.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Specific Slide Backgrounds */
+.spa-slide {
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/massage.jpg');
+}
+
+.massage-slide {
+    /* Removed 'TFH/public/' because the server already knows to look there */
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/frontveiw3.jpg');
+}
+
+.lounge-slide {
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/frontlounge.jpg');
+}
+/* Ensure the text stays readable over the images */
+.slide-content {
+    z-index: 2;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+@keyframes fade {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+
+/* --- SECTIONS --- */
+.section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.section h2 {
+    color: var(--lemon);
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+
+/* --- FEATURES GRID --- */
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.feature-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 300px;
+}
+
+/* Testimonials Styling */
+.testimonials-area {
+    padding: 80px 10%;
+    background-color: #FFFFFF; /* White to make the black cards pop */
+    text-align: center;
+}
+
+.main-title {
+    font-size: 2.2rem;
+    color: #1A1A1A;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+.testimonials-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.testimonial-item {
+    background-color: #1A1A1A; /* Black */
+    color: #FFFFFF;           /* White */
+    padding: 40px 30px;
+    border-radius: 10px;
+    border-bottom: 5px solid #D9F110; /* Lemon Accent */
+    transition: 0.3s ease-in-out;
+}
+
+.testimonial-item:hover {
+    transform: translateY(-10px);
+}
+
+.testimonial-item.premium {
+    border: 2px solid #D9F110;
+}
+
+.tag {
+    background-color: #D9F110;
+    color: #1A1A1A;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 5px 10px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.stars {
+    color: #D9F110;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.testimonial-item p {
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.author {
+    color: #D9F110;
+    font-weight: bold;
+    display: block;
+}
+
+/* --- Review Form Styling --- */
+.submit-review-section {
+    padding: 60px 20px;
+    background-color: #F9F9F9; /* Light gray to distinguish from the black cards */
+    text-align: center;
+}
+
+.review-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #1A1A1A; /* Black background */
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.review-form p {
+    color: #FFFFFF;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.review-form input, 
+.review-form select, 
+.review-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #333;
+    background-color: #222;
+    color: #FFFFFF;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+.review-form input:focus, 
+.review-form textarea:focus {
+    outline: none;
+    border-color: #D9F110; /* Lemon glow on focus */
+}
+
+.submit-btn {
+    background-color: #D9F110; /* Lemon */
+    color: #1A1A1A;           /* Black */
+    border: none;
+    padding: 15px 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #FFFFFF;
+    color: #1A1A1A;
+}
+
+/* Container for the boxes */
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* The actual "Box" style */
+.review-card {
+    background-color: #1a1a1a; /* Same black as your top cards */
+    color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    border-bottom: 5px solid #d9f110; /* That signature Lemon glow */
+    transition: transform 0.3s ease;
+    text-align: left; /* Keeps text professional */
+}
+
+.review-card:hover {
+    transform: translateY(-5px); /* Makes it feel interactive */
+}
+
+.review-card .stars {
+    color: #d9f110;
+    margin-bottom: 15px;
+}
+
+.review-card .review-text {
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.review-card .client-name {
+    color: #d9f110;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+/* Products Page Styling */
+.products-hero {
+    background-color: #1A1A1A;
+    color: #D9F110;
+    padding: 60px 20px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 50px 0;
+}
+
+.product-card {
+    background: #FFFFFF;
+    border: 1px solid #EEE;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: 0.3s;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    border-color: #D9F110;
+}
+
+.product-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.product-info h3 {
+    color: #1A1A1A;
+    margin-bottom: 10px;
+}
+
+.product-info p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.product-info .price {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1A1A1A;
+    margin-bottom: 15px;
+}
+
+.buy-btn {
+    background-color: #1A1A1A;
+    color: #D9F110;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.buy-btn:hover {
+    background-color: #D9F110;
+    color: #1A1A1A;
+}
+
+/* Navigation Base */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+/* Dropdown Parent */
+.dropdown {
+    position: relative;
+}
+
+/* The Sub-menu (ul) */
+.dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%; /* Appears right below the link */
+    left: 0;
+    background-color: #1A1A1A; /* Black */
+    list-style: none;
+    padding: 10px 0;
+    min-width: 150px;
+    border-top: 3px solid #D9F110; /* Lemon Accent */
+    z-index: 100;
+}
+
+/* Links inside the sub-menu */
+.dropdown-content li a {
+    color: white;
+    padding: 10px 20px;
+    display: block;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+/* Hover effect on sub-links */
+.dropdown-content li a:hover {
+    background-color: #D9F110;
+    color: #1A1A1A;
+}
+
+/* Show the menu when hovering over the parent li */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Spa Page Specifics */
+.spa-hero {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/images/massage.png');
+    background-size: cover;
+    background-position: center;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #D9F110; /* Lemon */
+}
+
+.services-section {
+    padding: 80px 0;
+    background-color: #ffffff;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.service-card {
+    background: #1A1A1A; /* Black */
+    color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    border-bottom: 5px solid #D9F110;
+    transition: 0.3s;
+}
+
+.service-card.highlighted {
+    border: 2px solid #D9F110;
+}
+
+.service-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.spa-cta {
+    background-color: #1A1A1A;
+    color: #ffffff;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/* Spa Page Styles */
+.spa-hero-simple {
+    background-color: #1A1A1A;
+    color: #D9F110;
+    padding: 60px 20px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 60px 0;
+}
+
+.service-box {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.service-box:hover {
+    border-color: #D9F110;
+    transform: translateY(-10px);
+}
+
+.service-box.highlighted {
+    background-color: #1A1A1A;
+    color: #ffffff;
+    border-bottom: 5px solid #D9F110;
+}
+
+.service-box .icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.service-box h3 {
+    color: inherit;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.service-box p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.service-box.highlighted p {
+    color: #ccc;
+}
+
+.booking-section {
+    background-color: #1A1A1A;
+    color: #ffffff;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.booking-form-section {
+    padding: 80px 0;
+    background-color: #f9f9f9;
+}
+
+.booking-card {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 50px;
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    border-bottom: 5px solid #d9f110;
+}
+
+.spa-form .form-group {
+    margin-bottom: 20px;
+}
+
+.spa-form input, .spa-form select, .spa-form textarea {
+    width: 100%;
+    padding: 15px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    color: white;
+    border-radius: 5px;
+}
+
+.glow-btn {
+    background-color: #d9f110;
+    color: #1a1a1a;
+    border: none;
+    padding: 15px 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.glow-btn:hover {
+    background-color: #ffffff;
+}
+
+/* Thank You Page Styling */
+.thanks-container {
+    padding: 100px 20px;
+    background-color: #f4f4f4; /* Light gray background to make the black card pop */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.thanks-card {
+    background-color: #1a1a1a; /* Professional Black */
+    color: #ffffff;
+    padding: 60px 40px;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border-bottom: 8px solid #d9f110; /* Signature Lemon Glow */
+}
+
+.thanks-card .check-icon {
+    font-size: 5rem;
+    color: #d9f110;
+    margin-bottom: 20px;
+}
+
+.thanks-card h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #d9f110;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.thanks-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #cccccc;
+}
+
+.btn-back-home {
+    background-color: #d9f110;
+    color: #1a1a1a;
+    padding: 15px 35px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px;
+    text-transform: uppercase;
+    transition: 0.3s ease;
+    display: inline-block;
+}
+
+.btn-back-home:hover {
+    background-color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* Lounge Page Specifics */
+.lounge-hero {
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('/images/Snooker.jpg'); /* You can swap this for a lounge image later */
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #d9f110;
+}
+
+.lounge-hero h1 {
+    font-size: 3.5rem;
+    text-transform: uppercase;
+}
+
+.lounge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 80px 0;
+}
+
+.lounge-card {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 50px 30px;
+    border-radius: 15px;
+    text-align: center;
+    transition: 0.3s ease;
+}
+
+.lounge-card.highlighted {
+    border: 2px solid #d9f110;
+}
+
+.lounge-card:hover {
+    transform: translateY(-10px);
+}
+
+.lounge-card .icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.lounge-card h3 {
+    color: #d9f110;
+    margin-bottom: 15px;
+}
+
+/* Lounge Menu Styling */
+.lounge-menu {
+    padding: 60px 0;
+    background-color: #fcfcfc;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.menu-category {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    transition: 0.3s;
+}
+
+.menu-category.highlighted {
+    background: #1a1a1a;
+    color: #ffffff;
+    border-bottom: 4px solid #d9f110; /* Lemon Accent */
+}
+
+.menu-category h3 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    color: #d9f110; /* Lemon Accent */
+    text-transform: uppercase;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.menu-category.highlighted h3 {
+    border-bottom-color: #333;
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-list li {
+    padding: 10px 0;
+    font-size: 1.1rem;
+    border-bottom: 1px dashed #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu-category.highlighted .menu-list li {
+    border-bottom-color: #333;
+}
+
+.menu-category:hover {
+    transform: translateY(-5px);
+}
+
+.lounge-video-section {
+    padding: 60px 0;
+    background-color: #1a1a1a; /* Matching your black theme */
+    text-align: center;
+}
+
+.lounge-video-section .section-title {
+    color: #d9f110; /* Lemon glow */
+    margin-bottom: 30px;
+}
+
+.video-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    border: 5px solid #d9f110;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+video {
+    display: block;
+    outline: none;
+}
+
+/* Order Now Button Styling */
+.order-btn {
+    display: block;
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: #d9f110; /* Lemon Glow */
+    color: #1a1a1a; /* Professional Black */
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    text-transform: uppercase;
+    transition: 0.3s ease;
+}
+
+.order-btn:hover {
+    background-color: #ffffff;
+    transform: scale(1.05);
+}
+
+.menu-category.highlighted .order-btn {
+    box-shadow: 0 0 15px rgba(217, 241, 16, 0.4);
+}
+
+.lounge-order-section {
+    padding: 80px 0;
+    background-color: #f4f4f4;
+}
+
+.order-card {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+    border-left: 5px solid #d9f110; /* Lemon accent */
+}
+
+.lounge-form input, .lounge-form select, .lounge-form textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 12px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    color: white;
+    border-radius: 5px;
+}
+
+.glow-btn {
+    background-color: #d9f110;
+    color: #1a1a1a;
+    width: 100%;
+    padding: 15px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contact-hero {
+    background-color: #1a1a1a;
+    color: #d9f110;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    padding: 60px 0;
+}
+
+.contact-info {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-left: 10px solid #d9f110;
+}
+
+.contact-info h2, .contact-info h3 {
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+
+.map-box {
+    background: #eeeeee;
+    height: 100%;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 2px solid #d9f110;
+}
+
+.bell-notif {
+    position: relative;
+    font-size: 1.8rem;
+}
+
+.notification-dot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    background-color: red;
+    border-radius: 50%;
+    border: 2px solid #1a1a1a;
+    display: none; /* Hidden until new data arrives */
+}
+
+.pulse-animation {
+    animation: pulse-red 1s infinite;
+}
+
+@keyframes pulse-red {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.btn-lemon {
+    display: inline-block;
+    background-color: #d9f110; /* The Lemon Yellow */
+    color: #1a1a1a;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: 0.3s ease;
+}
+
+.btn-lemon:hover {
+    background-color: #f2ff4d;
+    transform: translateY(-2px);
+}
+
+/* Laptop and Tablet View */
+.datetime-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Side-by-side */
+    gap: 10px;
+}
+
+/* Phone View (Screens smaller than 600px) */
+@media (max-width: 600px) {
+    .datetime-group {
+        grid-template-columns: 1fr; /* Stacks vertically */
+        gap: 15px; /* Adds a little more space between the stacked fields */
+    }
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: #222;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #333;
+}
+
+.faq-question {
+    width: 100%;
+    padding: 20px;
+    background: none;
+    border: none;
+    color: #fff;
+    text-align: left;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.faq-question:hover {
+    color: #d9f110;
+}
+
+.faq-answer {
+    padding: 0 20px;
+    max-height: 0; /* Hidden by default */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background: #1a1a1a;
+}
+
+.faq-answer p {
+    padding: 20px 0;
+    color: #ccc;
+    line-height: 1.6;
+}
+
+/* Responsive adjustment for phones */
+@media (max-width: 600px) {
+    .faq-question {
+        font-size: 1rem;
+    }
+}
+
+/* Ensure the list looks clean on mobile and laptop */
+.menu-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.95rem;
+}
+
+/* On phones, make the grid stack so the long list doesn't look squashed */
+@media (max-width: 768px) {
+    .menu-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+/* Container for each category box */
+.menu-category {
+    background: #111; /* Dark background to match TFH aesthetic */
+    padding: 25px;
+    border: 1px solid #333;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.menu-category:hover {
+    border-color: #d9f110; /* Glows lemon on hover */
+    transform: translateY(-5px);
+}
+
+/* Header for each category */
+.menu-category h3 {
+    color: #d9f110;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #d9f110;
+    padding-bottom: 10px;
+}
+
+/* The List of items */
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.menu-list li {
+    display: flex;
+    justify-content: space-between; /* Pushes name to left, price to right */
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.95rem;
+    color: #efefef;
+}
+
+/* Styling the Price specifically */
+.menu-list li::after {
+    content: "";
+    flex-grow: 1;
+    border-bottom: 1px dotted #444; /* Added dots between name and price */
+    margin: 0 10px;
+}
+
+.menu-list li span.price {
+    color: #d9f110;
+    font-weight: bold;
+    min-width: 70px;
+    text-align: right;
+}
+
+/* Responsive Grid for the Menu */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Adjustments for Mobile Phones */
+@media (max-width: 600px) {
+    .menu-category {
+        padding: 15px;
+    }
+    
+    .menu-list li {
+        font-size: 0.85rem; /* Smaller text for small screens */
+    }
+}
+
+.section-title {
+    color: var(--lemon);
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    text-align: center;
+    }
+
+.center-wrapper {
+    display: flex !important;          /* Activates Flexbox */
+    justify-content: center !important; /* Forces horizontal center */
+    align-items: center !important;     /* Forces vertical center */
+    width: 100% !important;            /* Ensures it spans the whole page */
+    margin: 40px 0 !important;         /* Adds space so it's not touching the menu */
+}
+
+.order-btn {
+    display: inline-block !important;
+    background-color: #d9f110;         /* Your Lemon Color */
+    color: #000;
+    padding: 15px 80px;                /* Makes it wide and easy to click */
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.menu-list li {
+    display: flex;
+    justify-content: space-between; /* Pushes name/checkbox to left, price to right */
+    align-items: center;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.menu-item-info {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Adds space between checkbox and the food name */
+}
+
+/* Container for the upload area */
+.form-right {
+    margin-top: 20px;
+}
+
+.form-right label {
+    display: block;
+    color: #d9f110;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.upload-box {
+    position: relative;
+    width: 100%;
+    min-height: 200px;
+    border: 2px dashed #d9f110; /* Lemon dash border */
+    border-radius: 12px;
+    background: rgba(217, 241, 16, 0.05); /* Very light yellow tint */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Make the box glow when you hover over it */
+.upload-box:hover {
+    background: rgba(217, 241, 16, 0.1);
+    box-shadow: 0 0 15px rgba(217, 241, 16, 0.2);
+}
+
+/* Hide the ugly default browser button */
+#imageInput {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.preview-placeholder .icon {
+    font-size: 50px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.preview-placeholder p {
+    color: #ccc;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.upload-hint {
+    color: #d9f110;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* This controls the container for the image */
+.event-card .image-container {
+    flex: 1;
+    min-width: 300px;
+    height: 350px; /* Force a specific height */
+    overflow: hidden; /* Hide the parts of the image that are too big */
+}
+
+/* This forces the image to fill the box without stretching */
+.event-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This is the "magic" line that crops the image perfectly */
+    object-position: center;
+}
+
+/* 2. The Tooltip (Hidden by default) */
+.whatsapp-float::before {
+    content: attr(data-tooltip); /* Pulls text from the HTML attribute */
+    position: absolute;
+    right: 80px; /* Positions it to the left of the icon */
+    background-color: #1a1a1a;
+    color: #d9f110; /* Signature lemon yellow */
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateX(10px);
+    border: 1px solid #d9f110;
+    pointer-events: none;
+}
+
+/* 3. Show Tooltip on Hover */
+.whatsapp-float:hover::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    background-color: #d9f110;
+    color: #000;
+}
+
+/* 1. Add a Hamburger Icon (Hidden on Desktop) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background-color: var(--lemon);
+    border-radius: 2px;
+}
+
+/* 2. Update your Media Query (Replace your current max-width: 600px and 768px blocks) */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex; /* Show the button on mobile */
+    }
+
+    .main-header {
+        padding: 15px 5%;
+        flex-wrap: wrap; /* Allows the menu to drop to the next line */
+    }
+
+    .nav-links {
+        display: none; /* Hide links by default on mobile */
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 20px 0;
+        background-color: #1A1A1A;
+    }
+
+    /* This class will be toggled via JavaScript */
+    .nav-links.active {
+        display: flex;
+    }
+
+    .logo {
+        font-size: 1.1rem;
+        white-space: normal;
+    }
+}
+
+/* Footer */
+footer {
+    background-color: var(--black);
+    color: var(--white);
+    text-align: center;
+    padding: 3rem;
+}

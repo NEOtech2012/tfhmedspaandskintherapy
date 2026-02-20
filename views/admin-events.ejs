@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <title>Manage Events - TFH Admin</title>
+</head>
+<body style="background: #111; color: white; padding: 50px;">
+    <div class="container" style="max-width: 600px; margin: 0 auto; border: 1px solid #d9f110; padding: 30px; border-radius: 15px;">
+        <h2 style="color: #d9f110;">Add New Event</h2>
+        <form action="/add-event" method="POST" enctype="multipart/form-data">
+            <div style="margin-bottom: 15px;">
+                <label>Event Name:</label><br>
+                <input type="text" name="title" required style="width: 100%; padding: 10px; background: #222; color: white; border: 1px solid #444;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>Date & Time:</label><br>
+                <input type="text" name="date" placeholder="e.g. March 20th, 8PM" required style="width: 100%; padding: 10px; background: #222; color: white; border: 1px solid #444;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>Description:</label><br>
+                <textarea name="description" required style="width: 100%; padding: 10px; background: #222; color: white; border: 1px solid #444;"></textarea>
+            </div>
+             <div class="form-right" style="margin-bottom: 20px;">
+                <label>Property Image</label>
+                <div class="upload-box" style="border: 2px dashed #d9f110; padding: 20px; text-align: center; border-radius: 10px; cursor: pointer; position: relative;">
+                    <div class="preview-placeholder">
+                        <span class="icon">🖼️</span>
+                        <p>No image selected</p>
+                    </div>
+                    <input type="file" name="imageFile" id="imageInput" accept="image/*" required style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; cursor: pointer;">
+                    <p class="upload-hint" style="color: #d9f110; font-size: 0.8rem;">Click to upload from your computer</p>
+                </div>
+            </div>
+
+            <button type="submit" style="width: 100%; background: #d9f110; color: black; padding: 12px; border: none; font-weight: bold; cursor: pointer; border-radius: 5px;">UPLOAD EVENT</button>
+        </form>
+
+        <h3 style="color: #d9f110; margin-top: 50px; border-top: 1px solid #333; padding-top: 20px;">Current Events</h3>
+        <div style="margin-top: 20px;">
+            <% if (events && events.length > 0) { %>
+                <% events.forEach((event, index) => { %>
+                    <div style="background: #222; padding: 15px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333;">
+                        <div>
+                            <strong style="color: #d9f110;"><%= event.title %></strong>
+                            <p style="margin: 0; font-size: 0.8rem; color: #888;"><%= event.date %></p>
+                        </div>
+                        <form action="/delete-event" method="POST" onsubmit="return confirm('Delete this event?');">
+                            <input type="hidden" name="index" value="<%= index %>">
+                            <button type="submit" style="background: #ff4444; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">DELETE</button>
+                        </form>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p style="color: #666; text-align: center;">No events to manage.</p>
+            <% } %>
+        </div>
+    </div>
+
+<script>
+    const imageInput = document.getElementById('imageInput');
+    const placeholder = document.querySelector('.preview-placeholder');
+
+    imageInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                placeholder.innerHTML = `<img src="${e.target.result}" style="max-width: 100%; max-height: 150px; border-radius: 8px;">`;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+</body>
+</html>

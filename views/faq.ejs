@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <title>FAQ - TFH MedSpa</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        /* This ensures the FAQ page has a dark luxury background like the rest */
+        body { background-color: #1a1a1a; color: white; }
+        
+        /* Make sure the answer text is visible against the dark background */
+        .faq-answer p { color: #ccc; }
+    </style>
+</head>
+<body>
+    <%- include('partials/header') %> <section class="faq-section" style="padding: 60px 0;">
+        <div class="container">
+            <h2 style="color: #d9f110; text-align: center; margin-bottom: 30px; font-size: 2.5rem;">Frequently Asked Questions</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">How do I book an appointment? <span>+</span></button>
+                    <div class="faq-answer">
+                        <p>You can book directly on this website by selecting your desired service and filling out the booking form. You can also reach us via the WhatsApp button for instant inquiries.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">Where is TFH MedSpa and Skin Thearpy located? <span>+</span></button>
+                    <div class="faq-answer">
+                        <p>We are located in Abuja, Nigeria. You can find our live GPS location on our <a href="/contact" style="color: #d9f110;">Contact Page</a>.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">Are your skin products safe for all skin types? <span>+</span></button>
+                    <div class="faq-answer">
+                        <p>Yes! Our TFH Skin Care Products are formulated with natural ingredients like honey and coconut oil. However, we recommend a Professional Consultancy session for personalized skin advice.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">Do you offer training for beginners? <span>+</span></button>
+                    <div class="faq-answer">
+                        <p>Absolutely. Our Professional Training covers everything from  Aesthetician, Spa thearpist to a proffessional Masseuse/Masseu for both beginners and experts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const faqQuestions = document.querySelectorAll('.faq-question');
+
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const answer = question.nextElementSibling;
+                
+                item.classList.toggle('active');
+
+                if (item.classList.contains('active')) {
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                    question.querySelector('span').innerText = "-";
+                } else {
+                    answer.style.maxHeight = 0;
+                    question.querySelector('span').innerText = "+";
+                }
+            });
+        });
+    </script>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

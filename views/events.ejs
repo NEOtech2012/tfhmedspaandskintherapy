@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <title>Events - TFH MedSpa & Lounge</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="background: #111; color: white;">
+    <%- include('partials/header') %>
+
+    <section class="events-list" style="padding: 50px 0;">
+        <div class="container">
+            <% if (events.length > 0) { %>
+                <% events.forEach(event => { %>
+                    <div class="event-card" style="display: flex; background: #1a1a1a; border: 1px solid #d9f110; border-radius: 15px; overflow: hidden; margin-bottom: 30px; flex-wrap: wrap;">
+                       <div class="image-container">
+    <img src="<%= event.image %>" alt="Event Image">
+</div>
+                        <div style="flex: 1; padding: 40px; min-width: 300px;">
+                            <span style="color: #d9f110; font-weight: bold; text-transform: uppercase;"><%= event.date %></span>
+                            <h2 style="margin: 10px 0; color: white;"><%= event.title %></h2>
+                            <p style="color: #ccc;"><%= event.description %></p>
+                            
+                            <div style="margin: 20px 0; border-top: 1px solid #333; padding-top: 20px;">
+                                <p>📍 TFH Luxury Lounge, Abuja</p>
+                                <p>🕗 Event Time: <%= event.date %></p>
+                            </div>
+
+                            <a href="https://wa.me/2348164192338?text=I am interested in: <%= event.title %>" 
+                               class="order-btn" style="display: inline-block; background: #d9f110; color: #000; padding: 12px 30px; text-decoration: none; font-weight: bold; border-radius: 5px; text-transform: uppercase;">
+                               RSVP ON WHATSAPP
+                            </a>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div style="text-align: center; padding: 50px;">
+                    <p style="color: #888;">No upcoming events at the moment. Check back soon!</p>
+                </div>
+            <% } %>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

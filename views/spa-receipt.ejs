@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <title>Booking Receipt - TFH MedSpa</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .receipt-card {
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid #d9f110;
+            max-width: 500px;
+            margin: 50px auto;
+            box-shadow: 0 0 25px rgba(217, 241, 16, 0.1);
+        }
+        .receipt-header {
+            text-align: center;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        .receipt-header h2 {
+            color: #d9f110;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+        .receipt-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 5px;
+        }
+        .receipt-line strong { color: #d9f110; font-size: 0.9rem; }
+        .receipt-line span { color: #fff; font-weight: 500; }
+        
+        .confirm-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: #d9f110;
+            color: #000;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 800;
+            border-radius: 8px;
+            margin-top: 30px;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .confirm-btn:hover {
+            background: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(217, 241, 16, 0.4);
+        }
+    </style>
+</head>
+<body style="background: #000; font-family: 'Segoe UI', sans-serif;">
+
+    <div class="receipt-card">
+        <div class="receipt-header">
+            <h2>Booking Summary</h2>
+            <p style="color: #888; font-size: 0.8rem; margin-top: 5px;">TFH MedSpa & Skin Therapy</p>
+        </div>
+        
+        <div class="receipt-line"><strong>Customer:</strong> <span id="r-name"></span></div>
+        <div class="receipt-line"><strong>Phone:</strong> <span id="r-phone"></span></div>
+        <div class="receipt-line"><strong>Service:</strong> <span id="r-service"></span></div>
+        <div class="receipt-line"><strong>Date:</strong> <span id="r-date"></span></div>
+        <div class="receipt-line"><strong>Time:</strong> <span id="r-time"></span></div>
+
+        <p style="color: #666; font-size: 0.75rem; text-align: center; margin-top: 20px;">
+            Click below to send this receipt to our official WhatsApp line for final confirmation.
+        </p>
+
+        <a id="wa-confirm" href="#" target="_blank" class="confirm-btn">
+            Confirm via WhatsApp ✅
+        </a>
+         <a href="/spa" class="back-link" style="display: block; margin-top: 25px; color: #555; font-size: 0.85rem; text-decoration: none; transition: 0.3s; text-align: center;" onmouseover="this.style.color='#d9f110'" onmouseout="this.style.color='#555'">
+                <i class="fas fa-arrow-left"></i> Cancel and go back
+            </a>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get('name') || 'Guest';
+        const phone = params.get('phone') || 'N/A';
+        const service = params.get('service') || 'Spa Service';
+        const date = params.get('date') || '';
+        const time = params.get('time') || '';
+
+        document.getElementById('r-name').innerText = name;
+        document.getElementById('r-phone').innerText = phone;
+        document.getElementById('r-service').innerText = service;
+        document.getElementById('r-date').innerText = date;
+        document.getElementById('r-time').innerText = time;
+
+        const message = encodeURIComponent(
+            `*OFFICIAL SPA BOOKING RECEIPT*\n` +
+            `--------------------------\n` +
+            `*Customer:* ${name}\n` +
+            `*Phone:* ${phone}\n` +
+            `*Service:* ${service}\n` +
+            `*Appointment:* ${date} at ${time}\n` +
+            `--------------------------\n` +
+            `_I am confirming this booking from the website._`
+        );
+
+        // Your WhatsApp Number
+        document.getElementById('wa-confirm').href = `https://wa.me/2348164192338?text=${message}`;
+    </script>
+</body>
+</html>

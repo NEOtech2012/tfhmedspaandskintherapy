@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <title>Spa Services - TFH MedSpa</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <section class="spa-hero-simple">
+        <div class="container">
+            <h1>Our Premium Spa Services</h1>
+            <p>Professional care at TFH MedSpa and skin therapy</p>
+        </div>
+    </section>
+
+    <div class="services-container">
+        <div class="container">
+            <div class="services-grid">
+                
+               <div class="service-box">
+                  <div class="icon">✨</div>
+                  <h3>Body Treatment</h3>
+                  <p>Advanced therapy for glowing, healthy skin.</p>
+                  <a href="/body-treatment" class="btn-lemon">Select Treatments</a>
+              </div>
+                <div class="service-box">
+    <div class="icon">🤝</div>
+    <h3>Professional Consultancy</h3>
+    <p>Expert guidance for marital, sexual, and skin health.</p>
+    <a href="/consultancy" class="btn-lemon">Select Type</a>
+</div>
+
+                <div class="service-box">
+                  <div class="icon">💆‍♀️</div>
+                <h3>Professional Massage</h3>
+                <p>Relax and rejuvenate with our expert therapists.</p>
+                 <a href="/massage" class="btn-lemon">Select Massage Type</a>
+            </div>
+
+               <div class="service-box">
+                <div class="icon">💅</div>
+               <h3>Professional Pedicure</h3>
+                   <p>Complete feet care and nail grooming sessions.</p>
+                <a href="/pedicure" class="btn-lemon">Select Type</a>
+                 </div>                
+
+                     <div class="service-box">
+                     <div class="icon">🧴</div>
+                    <h3>Skin Products</h3>
+                    <p>Shop our exclusive range of glow oils, creams, and sunscreens.</p>
+                    <a href="/skin-products" class="btn-lemon">Select Items</a>
+                </div>
+                <div class="service-box">
+                    <div class="icon">🌬️</div>
+                    <h3>Perfume Sales</h3>
+                    <p>Explore our exclusive collection of long-lasting oils and luxury ouds.</p>
+                    <a href="/perfumes" class="btn-lemon">Select Scents</a>
+                </div>
+                   <div class="service-box">
+                    <div class="icon">🦷</div>
+                    <h3>Teeth Whitening</h3>
+                    <p>Professional brightening for a confident, radiant smile.</p>
+                    <a href="/teeth-whitening" class="btn-lemon">Book Now</a>
+                </div>
+
+                <div class="service-box">
+                    <div class="icon">🔥</div>
+                    <h3>All Kind of Facials</h3>
+                    <p>Customized facials for acne, aging, and deep skin cleansing.</p>
+                    <a href="/facials" class="btn-lemon">Select Type</a></div>
+                
+
+                <div class="service-box">
+                <div class="icon">🍯</div>
+                <h3>Sales of Aphrodisiac</h3>
+                <p>Premium selection of traditional and natural sexual wellness products.</p>
+               <a href="/aphrodisiacs" class="btn-lemon">Order Now</a>
+            </div>
+
+            <div class="service-box">
+             <div class="icon">🧖‍♀️</div>
+           <h3>Steam Bath & Sauna</h3>
+       <p>Detoxify your skin with our herbal and Moroccan steam sessions.</p>
+        <a href="/steam-bath" class="btn-lemon">Select Type</a>
+         </div>
+
+            <div class="service-box">
+                <div class="icon">🎓</div>
+                <h3>Professional Training</h3>
+                <a href="/training" class="btn-lemon">Enroll Now</a>
+            </div>
+         </div>   
+
+    <script>
+        // Check if time is between 9 AM and 7 PM
+        document.getElementById('bookingTime').addEventListener('change', function() {
+            const time = this.value;
+            if (time < "09:00" || time > "19:00") {
+                document.getElementById('timeMsg').style.display = 'block';
+                this.value = ""; 
+            } else {
+                document.getElementById('timeMsg').style.display = 'none';
+            }
+        });
+    </script>
+
+    <%- include('partials/footer') %>
+
+</body>
+</html>

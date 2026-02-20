@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <title>TFH Management Hub</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .dashboard-container { padding: 40px; max-width: 1300px; margin: 0 auto; }
+        .control-panel { 
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; 
+            background: #1a1a1a; padding: 20px; border-radius: 10px; margin-bottom: 30px; gap: 15px;
+        }
+        .filter-group { display: flex; align-items: center; gap: 10px; background: #222; padding: 10px; border-radius: 8px; }
+        .filter-select { 
+            padding: 8px 15px; border-radius: 5px; background: #d9f110; 
+            font-weight: bold; cursor: pointer; border: none; font-size: 0.85rem;
+        }
+        .data-section { display: none; } 
+        .active-section { display: block; } 
+        
+        .data-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .data-table th { background: #d9f110; padding: 12px; text-align: left; color: #1a1a1a; font-size: 0.9rem; }
+        .data-table td { padding: 12px; border-bottom: 1px solid #eee; color: #333; font-size: 0.85rem; }
+        .bell-notif { font-size: 1.5rem; color: #d9f110; position: relative; cursor: pointer; }
+        .notification-dot { 
+            position: absolute; top: -5px; right: -5px; width: 12px; height: 12px; 
+            background: red; border-radius: 50%; display: none; border: 2px solid #1a1a1a;
+        }
+        .delete-btn {
+            background: #ff4444; color: white; border: none; padding: 6px 10px; 
+            border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body style="background: #f8f8f8;">
+
+<div id="audio-unlocker" onclick="unlockAudio()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #d9f110; cursor: pointer;">
+    <div style="font-size: 5rem; margin-bottom: 20px;">🔊</div>
+    <h2>Click to Activate TFH Hub</h2>
+    <p style="color: white;">Enables instant voice alerts for new customers.</p>
+</div>
+
+<div class="dashboard-container">
+    <div class="control-panel">
+        <h2 style="color: white; margin: 0;">TFH Management Hub</h2>
+        
+        <div class="filter-group">
+            <label style="color: #d9f110; font-size: 0.75rem;">Range:</label>
+            <input type="date" id="startDate" class="filter-select" style="background: #333; color: white;">
+            <input type="date" id="endDate" class="filter-select" style="background: #333; color: white;">
+            <button onclick="filterByDateRange()" class="filter-select">Filter 🔍</button>
+            <button onclick="resetDashboard()" class="filter-select" style="background: #444; color: white;">Reset 🔄</button>
+            <button onclick="exportToExcel()" class="filter-select" style="background: #28a745; color: white;">Excel 📊</button>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <select id="viewFilter" class="filter-select" onchange="switchView()">
+                <option value="orders">Lounge Orders</option>
+                <option value="bookings">Spa Bookings</option>
+                <option value="reviews">Customer Reviews</option>
+            </select>
+            <button onclick="clearAllItems()" class="delete-btn" style="border: 1px solid white;">Clear All 🗑️</button>
+            <div id="bell" class="bell-notif" onclick="document.getElementById('dot').style.display='none'">🔔<span id="dot" class="notification-dot"></span></div>
+        </div>
+    </div>
+
+    <div id="orders" class="data-section active-section">
+        <h3>🛒 Recent Lounge Orders</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Name</th><th>Phone</th><th>Items</th><th>Address</th><th>Date/Time</th><th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="orders-body">
+                <% orders.forEach((order, index) => { %>
+                    <tr>
+                        <td><%= order.name %></td><td><%= order.phone %></td><td><%= order.item %></td>
+                        <td><%= order.location %></td><td><%= order.date %></td>
+                        <td><button class="delete-btn" onclick="deleteItem('orders', <%= index %>)">Delete</button></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="bookings" class="data-section">
+        <h3>📅 Spa Bookings</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Client</th><th>Phone</th><th>Service</th><th>Appointment</th><th>WhatsApp</th><th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="bookings-body">
+                <% bookings.forEach((book, index) => { %>
+                    <tr>
+                        <td><%= book.name %></td><td><%= book.phone %></td><td><%= book.service %></td>
+                        <td><%= book.date %> at <%= book.time %></td>
+                        <td>
+                            <% const waPhone = book.phone.startsWith('0') ? '234' + book.phone.substring(1) : '234' + book.phone; %>
+                            <a href="https://wa.me/<%= waPhone %>" target="_blank" style="background: #25D366; color: white; padding: 5px 8px; border-radius: 4px; text-decoration: none; font-size: 0.75rem;">WhatsApp ✅</a>
+                        </td>
+                        <td><button class="delete-btn" onclick="deleteItem('bookings', <%= index %>)">Delete</button></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="reviews" class="data-section">
+        <h3>⭐ Customer Reviews</h3>
+        <table class="data-table">
+            <thead>
+                <tr><th>Name</th><th>Rating</th><th>Message</th><th>Action</th></tr>
+            </thead>
+            <tbody id="reviews-body">
+                <% reviews.forEach((rev, index) => { %>
+                    <tr>
+                        <td><%= rev.name %></td><td><%= rev.rating %> Stars</td><td><%= rev.message %></td>
+                        <td><button class="delete-btn" onclick="deleteItem('reviews', <%= index %>)">Delete</button></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    let lastTotal = <%= orders.length + bookings.length + reviews.length %>;
+    let audioUnlocked = false;
+    let isFiltered = false;
+
+    function unlockAudio() {
+        audioUnlocked = true;
+        document.getElementById('audio-unlocker').style.display = 'none';
+        speakNotification("System Live. Monitoring TFH Hub.");
+    }
+
+    function speakNotification(text = "New customer alert at T F H.") {
+        if ('speechSynthesis' in window && audioUnlocked) {
+            window.speechSynthesis.cancel(); // Fast-track: cancel current to speak newest
+            const message = new SpeechSynthesisUtterance(text);
+            message.rate = 1.2; 
+            window.speechSynthesis.speak(message);
+        }
+    }
+
+    setInterval(refreshDashboardData, 5000); // 5 sec is safer for your server while staying fast
+
+    function refreshDashboardData() {
+        if (isFiltered) return; 
+        
+        fetch('/tfh-management-data')
+            .then(res => res.json())
+            .then(data => {
+                const currentTotal = data.orderCount + data.bookingCount + data.reviewCount;
+                if (currentTotal > lastTotal) {
+                    speakNotification();
+                    document.getElementById('dot').style.display = 'block';
+                    lastTotal = currentTotal;
+                }
+                updateTableHTML(data.orders, 'orders-body', 'orders');
+                updateTableHTML(data.bookings, 'bookings-body', 'bookings');
+                updateTableHTML(data.reviews, 'reviews-body', 'reviews');
+            });
+    }
+
+    function resetDashboard() {
+        isFiltered = false;
+        document.getElementById('startDate').value = '';
+        document.getElementById('endDate').value = '';
+        refreshDashboardData();
+        speakNotification("Filters cleared.");
+    }
+
+    function filterByDateRange() {
+        const start = document.getElementById('startDate').value;
+        const end = document.getElementById('endDate').value;
+        
+        if (!start || !end) return alert("Select start and end dates.");
+
+        isFiltered = true; 
+        const activeTable = document.querySelector('.active-section tbody');
+        const rows = activeTable.querySelectorAll('tr');
+
+        const sDate = new Date(start); sDate.setHours(0,0,0,0);
+        const eDate = new Date(end); eDate.setHours(23,59,59,999);
+
+        let foundCount = 0;
+
+        rows.forEach(row => {
+            // Check both possible date columns: index 3 for Spa, index 4 for Lounge
+            const dateCellText = row.cells[3].innerText.split(' at ')[0] || row.cells[4].innerText; 
+            const rDate = new Date(dateCellText);
+
+            if (!isNaN(rDate) && rDate >= sDate && rDate <= eDate) {
+                row.style.display = ""; 
+                row.style.backgroundColor = "rgba(217, 241, 16, 0.2)"; 
+                foundCount++;
+            } else {
+                row.style.display = "none"; 
+            }
+        });
+
+        if (foundCount === 0) {
+            alert(`No records found for this range. Resetting view...`);
+            resetDashboard();
+        } else {
+            speakNotification(`Found ${foundCount} records.`);
+        }
+    }
+
+    function updateTableHTML(items, tableId, type) {
+        const tbody = document.getElementById(tableId);
+        if (!tbody) return;
+        let html = '';
+        items.forEach((item, index) => {
+            if (tableId === 'bookings-body') {
+                const wa = item.phone ? (item.phone.startsWith('0') ? '234'+item.phone.substring(1) : '234'+item.phone) : '';
+                html += `<tr><td>${item.name}</td><td>${item.phone}</td><td>${item.service}</td><td>${item.date} at ${item.time}</td>
+                         <td><a href="https://wa.me/${wa}" target="_blank" style="background:#25D366;color:white;padding:5px 8px;border-radius:4px;text-decoration:none;font-size:0.75rem;">WhatsApp ✅</a></td>
+                         <td><button class="delete-btn" onclick="deleteItem('${type}', ${index})">Delete</button></td></tr>`;
+            } else if (tableId === 'orders-body') {
+                html += `<tr><td>${item.name}</td><td>${item.phone}</td><td>${item.item}</td><td>${item.location}</td><td>${item.date}</td>
+                         <td><button class="delete-btn" onclick="deleteItem('${type}', ${index})">Delete</button></td></tr>`;
+            } else {
+                html += `<tr><td>${item.name}</td><td>${item.rating} Stars</td><td>${item.message}</td>
+                         <td><button class="delete-btn" onclick="deleteItem('${type}', ${index})">Delete</button></td></tr>`;
+            }
+        });
+        tbody.innerHTML = html;
+    }
+
+    function switchView() {
+        isFiltered = false;
+        const selected = document.getElementById('viewFilter').value;
+        document.querySelectorAll('.data-section').forEach(s => s.classList.remove('active-section'));
+        document.getElementById(selected).classList.add('active-section');
+    }
+
+    function deleteItem(type, index) {
+        if(confirm("Confirm Delete?")) {
+            fetch('/delete-item', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type, index })
+            }).then(() => refreshDashboardData());
+        }
+    }
+
+    function clearAllItems() {
+        const type = document.getElementById('viewFilter').value;
+        if(confirm("Permanently clear all records in this view?")) {
+            fetch('/clear-all', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type })
+            }).then(() => location.reload());
+        }
+    }
+
+    function exportToExcel() {
+        const type = document.getElementById('viewFilter').value;
+        const table = document.querySelector(`#${type} table`);
+        let csv = [];
+        table.querySelectorAll("tr").forEach(row => {
+            let data = [];
+            row.querySelectorAll("th, td").forEach((cell, i) => {
+                if (i < row.cells.length - 1) data.push('"' + cell.innerText + '"');
+            });
+            csv.push(data.join(","));
+        });
+        const blob = new Blob([csv.join("\n")], { type: "text/csv" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = `TFH_${type}_Report.csv`;
+        a.click();
+    }
+</script>
+</body>
+</html>

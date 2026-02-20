@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <title>Payment - TFH Lounge</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body style="background: #111; color: white; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    
+    <div class="container" style="max-width: 500px; width: 100%;">
+        <div class="payment-card" style="background: #1a1a1a; padding: 40px; border-radius: 20px; border: 1px solid #d9f110; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            
+            <h1 style="color: #d9f110; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px;">Make Payment</h1>
+            <p style="color: #ccc; margin-bottom: 30px; font-size: 0.9rem;">Transfer the total amount to the Zenith Bank account below to complete your order.</p>
+
+            <div style="background: #222; padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid #d9f110; text-align: left;">
+                
+                <p style="color: #888; font-size: 0.8rem; margin-bottom: 5px; text-transform: uppercase;">Phone Number:</p>
+                <p id="display-phone" style="color: white; font-weight: bold; margin-bottom: 15px;">Loading...</p>
+
+                <p style="color: #888; font-size: 0.8rem; margin-bottom: 5px; text-transform: uppercase;">Items Ordered:</p>
+                <p id="display-names" style="color: white; font-weight: bold; margin-bottom: 15px; line-height: 1.4;">Loading...</p>
+                
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; border-top: 1px solid #333; padding-top: 15px;">
+                    <span style="color: #888;">Subtotal:</span>
+                    <span style="color: white;">₦<span id="display-subtotal">0</span></span>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                    <span style="color: #888;">VAT (7.5%):</span>
+                    <span style="color: white;">₦<span id="display-vat">0</span></span>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #444; padding-top: 15px;">
+                    <strong style="color: white; font-size: 1.1rem;">Total to Pay:</strong>
+                    <span style="color: #d9f110; font-size: 2rem; font-weight: 900;">₦<span id="display-total">0</span></span>
+                </div>
+            </div>
+
+            <div style="background: rgba(217, 241, 16, 0.03); padding: 20px; border-radius: 12px; border: 1px dashed #d9f110; margin-bottom: 30px; position: relative;">
+                <p style="color: #d9f110; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px;">Moniepoint</p>
+                
+                <p style="margin: 0; font-size: 0.8rem; color: #888;">Account Name:</p>
+                <p style="font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; color: white;">TFH Juice bar and Lounge</p>
+                
+                <p style="margin: 0; font-size: 0.8rem; color: #888;">Account Number:</p>
+                <p style="font-size: 2.2rem; color: #d9f110; letter-spacing: 4px; font-weight: 900; margin: 5px 0;">0563690471</p>
+                
+                <p style="font-size: 0.75rem; color: #666; margin-top: 10px;">Use your <b style="color: #aaa;">Phone Number</b> as transaction reference.</p>
+            </div>
+
+            <a href="#" onclick="handlePaidActions(event)" class="order-btn" style="display: block; background: #d9f110; color: #000; padding: 18px; text-decoration: none; font-weight: 900; border-radius: 10px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;">
+   I Have Paid
+</a>
+            <a href="/lounge" style="display: block; margin-top: 25px; color: #555; font-size: 0.85rem; text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#d9f110'" onmouseout="this.style.color='#555'">
+                <i class="fas fa-arrow-left"></i> Cancel and go back
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 1. Extract Order Details from URL
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get('name') || "Customer";
+        const phone = params.get('phone') || "Not provided";
+        const items = params.get('items') || "No items selected";
+        
+        // Convert subtotal to a clean number for calculation
+        const rawTotal = params.get('total') || "0";
+        const subtotal = parseFloat(rawTotal.replace(/,/g, '')) || 0;
+
+        // 2. Perform VAT Calculations (7.5%)
+        const vatRate = 0.075;
+        const vatAmount = subtotal * vatRate;
+        const grandTotal = subtotal + vatAmount;
+
+        // 3. Update the UI Elements
+        document.getElementById('display-phone').innerText = phone;
+        document.getElementById('display-names').innerText = items;
+        document.getElementById('display-subtotal').innerText = subtotal.toLocaleString();
+        document.getElementById('display-vat').innerText = vatAmount.toLocaleString();
+        document.getElementById('display-total').innerText = grandTotal.toLocaleString();
+
+        // 4. Hover effect for the "I Have Paid" button
+        const paidBtn = document.getElementById('paid-btn');
+        paidBtn.onmouseover = () => { 
+            paidBtn.style.transform = 'scale(1.02)'; 
+            paidBtn.style.boxShadow = '0 0 20px rgba(217, 241, 16, 0.4)'; 
+        };
+        paidBtn.onmouseout = () => { 
+            paidBtn.style.transform = 'scale(1)'; 
+            paidBtn.style.boxShadow = 'none'; 
+        };
+
+        // 5. Function to move to the /paid page while carrying all data
+        function confirmPaid(event) {
+            event.preventDefault();
+            const currentParams = window.location.search;
+            window.location.href = "/paid" + currentParams;
+        };
+        function handlePaidActions(event) {
+    event.preventDefault();
+
+    // 1. Get the current URL parameters (name, phone, items, total)
+    const currentParams = window.location.search;
+
+    // 3. Redirect the CURRENT tab to the Paid/Receipt page
+    // We include currentParams so the receipt page still has the order info
+    window.location.href = "/paid" + currentParams,"_blank";
+}
+    </script>
+</body>
+</html>

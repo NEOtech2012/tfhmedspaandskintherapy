@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <title>Products - TFH MedSpa</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <section class="products-hero">
+        <h1>Our Skincare Collection</h1>
+        <p>Premium jars delivered to your doorstep.</p>
+    </section>
+
+    <section class="products-grid-container">
+        <div class="container">
+            <div class="products-grid">
+                <% products.forEach(function(product) { %>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="<%= product.image %>" alt="<%= product.name %>">
+                        </div>
+                        <div class="product-info">
+                            <h3><%= product.name %></h3>
+                            <p><%= product.desc %></p>
+                            <span class="price"><%= product.price %></span>
+                            <button class="buy-btn">Order via WhatsApp</button>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+</body>
+</html>
