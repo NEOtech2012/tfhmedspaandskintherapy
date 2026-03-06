@@ -420,5 +420,7 @@ app.post('/clear-all', (req, res) => {
 // 2. PASTE THE NEW ROUTE HERE
 const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`TFH MedSpa running at http://localhost:${PORT}`);
+    // This will now show up in your terminal immediately
+    console.log(`🚀 TFH MedSpa Server started at http://localhost:${PORT}`);
+    console.log(`Press Ctrl+C to stop the server`);
 });
