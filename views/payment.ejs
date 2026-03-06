@@ -119,45 +119,27 @@
             document.getElementById('display-vat').innerText = vatAmount.toLocaleString();
             document.getElementById('display-total').innerText = grandTotal.toLocaleString();
 
-            // 4. Paystack Payment Function
-            window.payWithPaystack = function(event) {
-                event.preventDefault();
-                
-                let handler = PaystackPop.setup({
-                    key: 'pk_live_3e53fe62ec76fb25b63608cdb1e4e2f071daa322', // REPLACE WITH YOUR PUBLIC KEY
-                    email: 'tfhspa01@gmail.com', // You can pull actual email if available
-                    amount: Math.round(grandTotal * 100), // GrandTotal in Kobo
-                    currency: 'NGN',
-                    ref: 'TFH-' + orderId,
-                    callback: function(response) {
-                        // This runs after successful payment
-                        alert('Payment successful! Reference: ' + response.reference);
-                        
-                        // Construct the WhatsApp message for receipt delivery
-                        const message = encodeURIComponent(
-                            `*OFFICIAL RECEIPT - TFH LOUNGE*\n` +
-                            `*Order ID:* #TFH-${orderId}\n` + 
-                            `*Payment Ref:* ${response.reference}\n` + 
-                            `--------------------------\n` +
-                            `*Customer:* ${name}\n` +
-                            `*Phone:* ${phone}\n` +
-                            `*Items:* ${items}\n` +
-                            `--------------------------\n` +
-                            `*GRAND TOTAL:* ₦${grandTotal.toLocaleString()}\n` +
-                            `--------------------------\n\n` +
-                            `_Payment Verified via Paystack. Order processing started._`
-                        );
-                        
-                        // Redirect to the success page or WhatsApp
-                        window.location.href = `https://wa.me/2348164192338?text=${message}`;
-                    },
-                    onClose: function() {
-                        alert('Transaction cancelled. Please complete payment to process your order.');
-                    }
-                });
-                handler.openIframe();
-            };
-
+            // 4. WhatsApp Order Function
+window.payWithPaystack = function(event) {
+    event.preventDefault();
+    
+    // Construct the WhatsApp message for receipt delivery
+    const message = encodeURIComponent(
+        `*OFFICIAL RECEIPT - TFH LOUNGE*\n` +
+        `*Order ID:* #TFH-${orderId}\n` + 
+        `--------------------------\n` +
+        `*Customer:* ${name}\n` +
+        `*Phone:* ${phone}\n` +
+        `*Items:* ${items}\n` +
+        `--------------------------\n` +
+        `*GRAND TOTAL:* ₦${grandTotal.toLocaleString()}\n` +
+        `--------------------------\n\n` +
+        `_Order processing started._`
+    );
+    
+    // Redirect directly to WhatsApp
+    window.location.href = `https://wa.me/2348164192338?text=${message}`;
+};
             const btn = document.getElementById('wa-confirm');
             if (btn) {
                 // Hover Effects
