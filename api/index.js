@@ -6,6 +6,10 @@ const { Pool } = require('pg');
 
 const app = express();
 
+// This tells Express to look for 'views' relative to the root, not just the api folder
+app.set('views', path.join(__dirname, '../views')); 
+app.set('view engine', 'ejs');
+
 // Middleware
 app.use(express.urlencoded({ extended: true })); 
 app.use(express.json());
