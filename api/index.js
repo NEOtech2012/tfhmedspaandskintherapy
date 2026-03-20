@@ -15,13 +15,46 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
 
-// --- DATABASE CONNECTION --- 
+// --- DATABASE CONNECTION & AUTO-TABLE CREATION --- 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false 
-  }
+  ssl: { rejectUnauthorized: false }
 });
+
+// This function creates the tables if they don't exist
+const initDb = async () => {
+  const queryText = `
+    CREATE TABLE IF NOT EXISTS orders (
+      id SERIAL PRIMARY KEY,
+      customer_name TEXT,
+      selected_items TEXT,
+      total_amount TEXT,
+      phone_number TEXT,
+      delivery_address TEXT
+    );
+    CREATE TABLE IF NOT EXISTS bookings (
+      id SERIAL PRIMARY KEY,
+      name TEXT,
+      service TEXT,
+      booking_date TEXT,
+      phone TEXT
+    );
+    CREATE TABLE IF NOT EXISTS reviews (
+      id SERIAL PRIMARY KEY,
+      name TEXT,
+      rating INTEGER,
+      message TEXT
+    );
+  `;
+  try {
+    await pool.query(queryText);
+    console.log("Database tables initialized successfully.");
+  } catch (err) {
+    console.error("Error initializing database tables:", err);
+  }
+};
+
+initDb(); // Run this when the server starts
 
 // Test the connection
 pool.query('SELECT NOW()', (err, res) => {
@@ -144,6 +177,7 @@ app.get('/faq', (req, res) => res.render('faq'));
 app.get('/payment', (req, res) => res.render('payment')); 
 app.get('/paid', (req, res) => res.render('paid'));
 app.get('/thank', (req, res) => res.render('thank'));
+app.get('/events', (req, res) => res.render('events'));
 app.get('/spa-receipt', (req, res) => res.render('spa-receipt'));
 
 // --- SERVER START ---
