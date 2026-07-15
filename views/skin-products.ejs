@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+    <title>Perfume Sales - TFH MedSpa</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="background: #1a1a1a; color: white; padding: 40px;">
+    
 <form action="/book-session" method="POST" style="max-width: 500px; margin: 20px auto; background: #222; padding: 30px; border-radius: 15px; border: 1px solid #d9f110; color: white;">
     <h2 style="color: #d9f110; text-align: center;">Select Your TFH Products</h2>
     
@@ -12,8 +21,8 @@
         </label>
     </div>
 
-    <input type="text" name="name" placeholder="Full Name" required style="width:100%; padding:12px; margin-bottom:10px;">
-    <input type="tel" name="phone" placeholder="Phone Number" required style="width:100%; padding:12px; margin-bottom:10px;">
+    <input type="text" name="name" placeholder="Full Name" required style="width:100%; padding:12px; margin-bottom:10px; border: none; background: #333; color: white;">
+    <input type="tel" name="phone" placeholder="Phone Number" required style="width:100%; padding:12px; margin-bottom:10px; border: none; background: #333; color: white;">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
         <input type="date" name="date" required style="padding:10px;">
         <input type="time" name="time" required style="padding:10px;">

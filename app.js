@@ -96,9 +96,6 @@ app.get('/spa', (req, res) => {
     // This renders the spa.ejs file you just created
     res.render('spa'); 
 });
-app.get('/lounge', (req, res) => {
-    res.render('lounge'); 
-});
 app.get('/about-us', (req, res) => {
     res.render('about'); 
 });
@@ -217,13 +214,13 @@ app.post('/book-session', (req, res) => {
         if (treatments) {
             selectedService = Array.isArray(treatments) ? treatments.join(", ") : treatments;
         }
-
+        
         // 3. Save the new booking
         const newBooking = {
             name,
             service: selectedService,
-            date,
-            time,
+            booking_date: date,  // <--- changed to match database
+            booking_time: time,  // <--- changed to match database
             phone
         };
 
@@ -231,7 +228,8 @@ app.post('/book-session', (req, res) => {
         fs.writeFileSync(filePath, JSON.stringify(bookings, null, 2));
         
         // CHANGE THIS PART: Redirect to a receipt page with the data in the URL
-          const queryString = `?name=${encodeURIComponent(newBooking.name)}&phone=${encodeURIComponent(newBooking.phone)}&service=${encodeURIComponent(newBooking.service)}&date=${newBooking.date}&time=${newBooking.time}`;
+         // UPDATE THIS LINE: Change newBooking.date to newBooking.booking_date AND newBooking.time to newBooking.booking_time
+const queryString = `?name=${encodeURIComponent(newBooking.name)}&phone=${encodeURIComponent(newBooking.phone)}&service=${encodeURIComponent(newBooking.service)}&date=${encodeURIComponent(newBooking.booking_date)}&time=${encodeURIComponent(newBooking.booking_time)}`;
           res.redirect('/spa-receipt' + queryString);
 
     } catch (err) {

@@ -75,8 +75,11 @@
             <tbody id="orders-body">
                 <% orders.forEach((order, index) => { %>
                     <tr>
-                        <td><%= order.name %></td><td><%= order.phone %></td><td><%= order.item %></td>
-                        <td><%= order.location %></td><td><%= order.date %></td>
+                        <td><%= order.customer_name || order.name %></td> 
+                        <td><%= order.phone_number || order.phone %></td>  
+                        <td><%= order.selected_items || order.item %></td>
+                        <td><%= order.delivery_address || order.location %></td>
+                        <td><%= order.date || order.id %></td>
                         <td><button class="delete-btn" onclick="deleteItem('orders', <%= index %>)">Delete</button></td>
                     </tr>
                 <% }) %>
@@ -89,16 +92,23 @@
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>Client</th><th>Phone</th><th>Service</th><th>Appointment</th><th>WhatsApp</th><th>Action</th>
+                    <th>Client</th>
+                    <th>Phone</th>
+                    <th>Service</th>
+                    <th>Appointment</th>
+                    <th>WhatsApp</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="bookings-body">
                 <% bookings.forEach((book, index) => { %>
                     <tr>
-                        <td><%= book.name %></td><td><%= book.phone %></td><td><%= book.service %></td>
-                        <td><%= book.date %> at <%= book.time %></td>
+                        <td><%= book.name %></td>
+                        <td><%= book.phone %></td>
+                        <td><%= book.service %></td>
+                        <td><%= book.booking_date || book.date %> at <%= book.booking_time || book.time %></td>
                         <td>
-                            <% const waPhone = book.phone.startsWith('0') ? '234' + book.phone.substring(1) : '234' + book.phone; %>
+                            <% const waPhone = book.phone ? (book.phone.startsWith('0') ? '234' + book.phone.substring(1) : '234' + book.phone) : ''; %>
                             <a href="https://wa.me/<%= waPhone %>" target="_blank" style="background: #25D366; color: white; padding: 5px 8px; border-radius: 4px; text-decoration: none; font-size: 0.75rem;">WhatsApp ✅</a>
                         </td>
                         <td><button class="delete-btn" onclick="deleteItem('bookings', <%= index %>)">Delete</button></td>
@@ -139,14 +149,14 @@
 
     function speakNotification(text = "New customer alert at T F H.") {
         if ('speechSynthesis' in window && audioUnlocked) {
-            window.speechSynthesis.cancel(); // Fast-track: cancel current to speak newest
+            window.speechSynthesis.cancel(); 
             const message = new SpeechSynthesisUtterance(text);
             message.rate = 1.2; 
             window.speechSynthesis.speak(message);
         }
     }
 
-    setInterval(refreshDashboardData, 5000); // 5 sec is safer for your server while staying fast
+    setInterval(refreshDashboardData, 5000); 
 
     function refreshDashboardData() {
         if (isFiltered) return; 
@@ -190,7 +200,6 @@
         let foundCount = 0;
 
         rows.forEach(row => {
-            // Check both possible date columns: index 3 for Spa, index 4 for Lounge
             const dateCellText = row.cells[3].innerText.split(' at ')[0] || row.cells[4].innerText; 
             const rDate = new Date(dateCellText);
 
@@ -218,15 +227,37 @@
         items.forEach((item, index) => {
             if (tableId === 'bookings-body') {
                 const wa = item.phone ? (item.phone.startsWith('0') ? '234'+item.phone.substring(1) : '234'+item.phone) : '';
-                html += `<tr><td>${item.name}</td><td>${item.phone}</td><td>${item.service}</td><td>${item.date} at ${item.time}</td>
-                         <td><a href="https://wa.me/${wa}" target="_blank" style="background:#25D366;color:white;padding:5px 8px;border-radius:4px;text-decoration:none;font-size:0.75rem;">WhatsApp ✅</a></td>
-                         <td><button class="delete-btn" onclick="deleteItem('${type}', ${index})">Delete</button></td></tr>`;
+                const bookingDate = item.booking_date || item.date || '';
+                const bookingTime = item.booking_time || item.time || '';
+                html += `<tr>
+                    <td>${item.name}</td>
+                    <td>${item.phone}</td>
+                    <td>${item.service}</td>
+                    <td>${bookingDate} at ${bookingTime}</td> 
+                    <td><a href="https://wa.me/${wa}" target="_blank" style="background: #25D366; color: white; padding: 5px 8px; border-radius: 4px; text-decoration: none; font-size: 0.75rem;">WhatsApp ✅</a></td>
+                    <td><button class="delete-btn" onclick="deleteItem('${type}', ${index})">Delete</button></td>
+                </tr>`;
             } else if (tableId === 'orders-body') {
-                html += `<tr><td>${item.name}</td><td>${item.phone}</td><td>${item.item}</td><td>${item.location}</td><td>${item.date}</td>
-                         <td><button class="delete-btn" onclick="deleteItem('${type}', ${index})">Delete</button></td></tr>`;
+                const customerName = item.customer_name || item.name || '';
+                const phoneNumber = item.phone_number || item.phone || '';
+                const selectedItems = item.selected_items || item.item || '';
+                const deliveryAddress = item.delivery_address || item.location || '';
+                const orderDate = item.date || item.id || '';
+                html += `<tr>
+                    <td>${customerName}</td>
+                    <td>${phoneNumber}</td>
+                    <td>${selectedItems}</td>
+                    <td>${deliveryAddress}</td>
+                    <td>${orderDate}</td>
+                    <td><button class="delete-btn" onclick="deleteItem('${type}', ${index})">Delete</button></td>
+                </tr>`;
             } else {
-                html += `<tr><td>${item.name}</td><td>${item.rating} Stars</td><td>${item.message}</td>
-                         <td><button class="delete-btn" onclick="deleteItem('${type}', ${index})">Delete</button></td></tr>`;
+                html += `<tr>
+                    <td>${item.name}</td>
+                    <td>${item.rating} Stars</td>
+                    <td>${item.message}</td>
+                    <td><button class="delete-btn" onclick="deleteItem('${type}', ${index})">Delete</button></td>
+                </tr>`;
             }
         });
         tbody.innerHTML = html;
